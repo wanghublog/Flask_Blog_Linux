@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,, initial-scale=1">
+  <!-- Will be replace the page title -->
+  <title>{% block title %}Edit Post{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+
+<body>
+  <div class="container">
+    <div class="jumbotron">
+      <!-- Replace the route function to URL: `/` -->
+      <h1><a href="{{ url_for('blog.home')}} ">Wanghu's 博客</a></h1>
+        <p>Welcome to the blog!</p>
+    </div>
+    {% with messages = get_flashed_messages(with_categories=true) %}<!--取出Flash()传入的数据-->
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="button" class="close" data-dismiss="alert" aria-label="Close">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            {{ messages }}
+          </div>
+        {% endfor%}
+      {% endif %}
+    {% endwith %}
+  </div>
+  <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+  
+  {% block body %}
+  <div class="row"style="margin: 0px 350px 100px 350px ">
+    <h1 class="text-center">Edit This Post</h1>
+    <form method="POST" action="{{ url_for('blog.edit_post',id=post.id) }}">
+      {{ form.hidden_tag() }}
+      <div class="form-group">
+        {{ form.title.label }}
+        {% if form.title.errors %}
+          {% for e in form.title.errors %}
+            <p class="help-block">{{ e }}</p>
+          {% endfor %}
+        {% endif %}
+        {{ form.title(class_='form-control',value=post.title) }}
+      </div>
+
+      <div class="form-gruop">
+        {{ form.text.label }}
+        <br>
+        {% if form.text.errors %}
+          {% for e in form.text.errors %}
+            <p class="help-block">{{ e }}</p>
+          {% endfor %}
+        {% endif %}
+        {{ form.text(id="editor", class_='form-contril') }}
+      </div>
+      <input class="btn-primary" type="submit" value="Submit">
+      <button type="button" >
+        <a href="{{url_for('.post', post_id=post.id)}}">cancle</a>
+      </button>
+    </form>
+  </div>
+  {% endblock %}
+
+  {% block js %}
+  <script src="//cdn.ckeditor.com/4.4.7/standard/ckeditor.js"></script>
+  <script>
+      CKEDITOR.replace('editor');
+  </script>
+  {% endblock %}
+  
+</body>
+</html>

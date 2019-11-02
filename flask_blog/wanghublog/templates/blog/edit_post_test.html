@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Post{% endblock %}
+
+
+{% block body %}
+  <div class="row"style="margin: 0px 350px 100px 350px ">
+    <h1 class="text-center">Edit This Post</h1>
+    <form method="POST" action="{{ url_for('blog.edit_post',id=post.id) }}">
+      {{ form.hidden_tag() }}
+      <div class="form-group">
+        {{ form.title.label }}
+        {% if form.title.errors %}
+          {% for e in form.title.errors %}
+            <p class="help-block">{{ e }}</p>
+          {% endfor %}
+        {% endif %}
+        {{ form.title(class_='form-control',value=post.title) }}
+      </div>
+
+      <div class="form-gruop">
+        {{ form.text.label }}
+        <br>
+        {% if form.text.errors %}
+          {% for e in form.text.errors %}
+            <p class="help-block">{{ e }}</p>
+          {% endfor %}
+        {% endif %}
+        {{ form.text(id="editor", class_='form-contril') }}
+      </div>
+      <input class="btn-primary" type="submit" value="Submit">
+      <button type="button" >
+        <a href="{{url_for('.post', post_id=post.id)}}">cancle</a>
+      </button>
+    </form>
+  </div>
+  {% endblock %}
+
+
+
