@@ -59,9 +59,13 @@
       <!-- Replace the route function to URL: `/` -->
       <h1><a href="{{ url_for('blog.home')}} ">WanHa 博客</a></h1>
         <p>Welcome to the blog!</p> 
-        <div class="user_now" style="margin: -25px 10px 0px 880px ">
+	<h4>
+		<a href="{{ url_for('blog.new_post') }}" class=" bt" > 写博客 </a>
+	</h4>
+        <div class="user_now" style="margin: -10px 30px 10px 800px ">
           {% if current_user.username != NUll %}
             {{  current_user.username }}，欢迎您！
+	    <a href="{{ url_for('main.logout') }}"> 注销</a>
             <!--{{ current_user.roles }}-->
           {% else %}
             <a href="{{ url_for('main.login') }}">请先登陆</a>

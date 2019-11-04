@@ -7,7 +7,7 @@ from wanghublog.controllers.Image import validate_picture
 from wanghublog.extensions import qq
 from io import BytesIO#二进制存储图片
 from flask_principal import Identity,AnonymousIdentity,identity_changed,current_app
-from flask_login import login_user
+from flask_login import login_user, logout_user
 import json
 main_blueprint = Blueprint(
     'main',
@@ -24,6 +24,7 @@ def get_code():
     # 把二进制作为response发回前端，并设置首部字段
     response = make_response(buf_str)
     response.headers['Content-Type'] = 'image/gif'
+    str = str.lower()
     # 将验证码字符串储存在session中
     session['image'] = str
     return response
@@ -38,10 +39,10 @@ def login():
 
     #check the account whether right
     if form.validate_on_submit():
-        if session.get('image') != form.verify_code.data:
-            flash(u'验证码错误','error')
-            return render_template('login.html',
-                           form=form)
+        #if session.get('image') != form.verify_code.data.lower():
+            #flash(u'验证码错误','error')
+            #return render_template('login.html',
+                           #form=form)
         
         # Using session to check the user's login status
         # Add the user's name to cookie.
@@ -87,8 +88,7 @@ def register():
     form = RegisterForm()
 
     if form.validate_on_submit():
-        new_user = User(id=str(uuid4()),
-                        username=form.username.data,
+        new_user = User(username=form.username.data,
                         password=form.password.data)
 
         db.session.add(new_user)

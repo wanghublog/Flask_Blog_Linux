@@ -4,7 +4,7 @@
   Login    
 {% endblock %}
 {% block body %}
-<div class="col-lg-3">
+<div class="col-lg-3" >
   <!-- Set the form -->
   <form method="POST" action="{{ url_for('main.login')
     }}">
@@ -48,6 +48,9 @@
     <input class="btn btn-primary" type="submit" value="Login">
   </form>
   <br>
+  <div>
+	  没有账号，<a href="{{ url_for('.register') }}">立即注册</a>
+  </div>
   <br>
     <div class="img">
         <h5>第三方合作登陆</h5>

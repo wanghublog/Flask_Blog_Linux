@@ -36,10 +36,10 @@ class User(db.Model):
         secondary = users_roles,
         backref = db.backref('users',lazy='dynamic'))
 
-    #def __init__(self, id, username, password):
-        #self.id = id
-        #self.username = username
-        #self.password = self.set_password(password)
+    def __init__(self, username, password):
+        self.id = str(uuid4())
+        self.username = username
+        self.password = self.set_password(password)
         # Setup the default-role for user.
         #default = Role.query.filter_by(name="default").one()
         #self.roles.append(default)
