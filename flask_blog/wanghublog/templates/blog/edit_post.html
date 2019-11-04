@@ -32,7 +32,8 @@
   </div>
   <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
   <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-  
+ 
+
   {% block body %}
   <div class="row"style="margin: 0px 350px 100px 350px ">
     <h1 class="text-center">Edit This Post</h1>
@@ -70,7 +71,10 @@
   <script src="//cdn.ckeditor.com/4.4.7/standard/ckeditor.js"></script>
   <script>
       CKEDITOR.replace('editor');
-  </script>
+  </script>  
+  <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+ 
   {% endblock %}
   
 </body>
